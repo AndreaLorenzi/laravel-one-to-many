@@ -17,6 +17,14 @@ class ProjectController extends Controller
         'description'   => 'string',
         'languages'     => 'required|string|max:50',
         'link_github'   => 'required|string|max:150',
+        "type_id"          => "required|integer|exists:categories,id",
+    ];
+    private $validation_messages = [
+        'required'  => 'Il campo :attribute è obbligatorio',
+        'min'       => 'Il campo :attribute deve avere almeno :min caratteri',
+        'max'       => 'Il campo :attribute non può superare i :max caratteri',
+        'url'       => 'Il campo deve essere un url valido',
+        'exists'    => 'Valore non valido'
     ];
     /**
      * Display a listing of the resource.
@@ -54,6 +62,7 @@ class ProjectController extends Controller
         $newProject->description = $data['description'];
         $newProject->languages = $data['languages'];
         $newProject->link_github = $data['link_github'];
+        $newProject->type_id       = $data['type_id'];
         $newProject->save();
 
         return redirect()->route('Admin.projects.show', ['project' => $newProject->id]);
@@ -103,6 +112,7 @@ class ProjectController extends Controller
         $newProject->description = $data['description'];
         $newProject->languages = $data['languages'];
         $newProject->link_github = $data['link_github'];
+        $project->type_id       = $data['type_id'];
         $newProject->update();
 
         // return 'commentare se serve debuggare';
