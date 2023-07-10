@@ -2,9 +2,10 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Http\Controllers\Controller;
+use App\Models\Type;
 use App\Models\Project;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
 
 class ProjectController extends Controller
 {
@@ -17,7 +18,7 @@ class ProjectController extends Controller
         'description'   => 'string',
         'languages'     => 'required|string|max:50',
         'link_github'   => 'required|string|max:150',
-        "type_id"          => "required|integer|exists:categories,id",
+        "type_id"          => "required|integer|exists:types,id",
     ];
     private $validation_messages = [
         'required'  => 'Il campo :attribute è obbligatorio',
@@ -42,7 +43,8 @@ class ProjectController extends Controller
    
     public function create()
     {
-        return view('admin.projects.create');
+        $types=Type::all();
+        return view('admin.projects.create', compact('types'));
     }
 
     
@@ -123,7 +125,7 @@ class ProjectController extends Controller
 
     public function destroy(Project $project)
     {
-        $project->delete();
-        return to_route('admin.projects.index')->with('delete_success',$project);
+        $types = Type::all();
+        return view('admin.projects.edit', compact('project', 'types'));
     }
 }

@@ -1,9 +1,9 @@
-@extends('Admin.layout.base')
+@extends('Admin.layouts.base')
 
-@section('contents ')
+@section('contents')
     <h1>Add new Project</h1>
 
-    <form method="POST" action="{{ route('projects.store') }}">
+    <form method="POST" action="{{ route('admin.project.store') }}">
         @csrf
         <div class="mb-3">
             <label for="title" class="form-label">Title</label>
@@ -16,6 +16,23 @@
                 @enderror
             </div>
         </div>
+
+        <div class="mb-3">
+            <label for="type" class="form-label">type</label>
+            <select class="form-select @error('type_id') is-invalid @enderror" id="type" name="type_id">
+                <option selected>Change type</option>
+
+                @foreach ($types as $type)
+                    <option value="{{ $type->id }}">{{ $type->name }}</option>
+                @endforeach
+            </select>
+            <div class="invalid-feedback">
+                @error('type_id')
+                    {{ $message }}
+                @enderror
+            </div>
+        </div>
+
 
         <div class="mb-3">
             <label for="author" class="form-label">Author</label>
@@ -63,8 +80,8 @@
 
         <div class="mb-3">
             <label for="description" class="form-label">Description</label>
-            <input type="textarea" class="form-control @error('description') is-invalid @enderror" id="description"
-                name="description" value="{{ old('description') }}">
+            <textarea class="form-control @error('description') is-invalid @enderror" id="description" rows="3"
+                name="description" value="{{ old('description') }}"></textarea>
             <div class="invalid-feedback">
                 @error('description')
                     {{ $message }}
@@ -75,8 +92,8 @@
 
         <div class="mb-3">
             <label for="languages" class="form-label">Languages</label>
-            <textarea class="form-control @error('languages') is-invalid @enderror" id="languages" rows="3" name="languages"
-                value="{{ old('languages') }}"></textarea>
+            <input type="text" class="form-control @error('languages') is-invalid @enderror" id="languages"
+                rows="3" name="languages" value="{{ old('languages') }}">
             <div class="invalid-feedback">
                 @error('languages')
                     {{ $message }}
@@ -86,8 +103,8 @@
 
         <div class="mb-3">
             <label for="link_github" class="form-label">Link Github</label>
-            <textarea class="form-control @error('link_github') is-invalid @enderror" id="link_github" rows="3"
-                name="link_github" value="{{ old('link_github') }}"></textarea>
+            <input type="textarea" class="form-control @error('description') is-invalid @enderror" id="description"
+                name="description" value="{{ old('description') }}">
             <div class="invalid-feedback">
                 @error('link_github')
                     {{ $message }}

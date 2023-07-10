@@ -28,8 +28,8 @@
 
                 <td>
                     <a class="btn btn-warning"
-                        href="{{ route('admin.projects.edit', ['project' => $project->id]) }}">Edit</a>
-                    <form action="{{ route('admin.projects.destroy', ['project' => $project->id]) }}" method="post"
+                        href="{{ route('admin.project.edit', ['project' => $project->id]) }}">Edit</a>
+                    <form action="{{ route('admin.project.destroy', ['project' => $project->id]) }}" method="post"
                         class="d-inline-block">
                         @csrf
                         @method('delete')
